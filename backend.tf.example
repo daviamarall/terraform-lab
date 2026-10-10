@@ -1,0 +1,17 @@
+# Exemplo de backend remoto: state no S3 com lock no DynamoDB.
+#
+# 1) Crie o bucket e a tabela de lock (uma vez).
+# 2) Renomeie este arquivo para `backend.tf`.
+# 3) Rode `terraform init -migrate-state`.
+#
+# Nunca versione o state local em equipe.
+
+terraform {
+  backend "s3" {
+    bucket         = "SEU-BUCKET-DE-STATE"
+    key            = "terraform-lab/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
